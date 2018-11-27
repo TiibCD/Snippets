@@ -11,8 +11,8 @@ public class SFTPConnect
         String password = "password";
         String host = "URL";
         int port = 22;
-        boolean usePassword = true; // To change if you want to use a private key authentication
-        File clePrivee;
+        boolean usePassword = true;
+        File clePrivee; // to initialize
         String pass; // contains either the password or the passphrase
 
         try
@@ -25,10 +25,12 @@ public class SFTPConnect
             if(clePrivee.exists()) 
             {
                 jsch.addIdentity(clePrivee);
+                usePassword = false;
                 System.out.println("Using the private key file authentication.");
             }
             else
             {
+                usePassword = true;
                 System.out.println("Using the password authentication.");
             }
             
