@@ -1,1 +1,41 @@
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
 
+public class SFTPConnect
+{
+    public static void main(String[] args)
+    {
+        String user = "user";
+        String password = "password";
+        String host = "URL";
+        int port = 22;
+
+        try
+        {
+            System.out.println("Establishing Connection...");
+
+            JSch jsch = new JSch();
+            Session session = jsch.getSession(user, host, port);
+            session.setPassword(password);
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.connect();
+
+            System.out.println("Connection established.");
+
+            System.out.println("Creating SFTP Channel.");
+
+            ChannelSftp sftpChannel = (ChannelSftp) session.openChannel("sftp");
+            sftpChannel.connect();
+
+            System.out.println("SFTP Channel created.");
+            sftpChannel.disconnect();
+            session.disconnect();
+        }
+        catch (JSchException e)
+        {
+            System.out.println(e);
+        }
+    }
+}
