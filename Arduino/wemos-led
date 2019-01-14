@@ -4,9 +4,6 @@
 #include <ESP8266WiFi.h>
 
 #define PIXEL_COUNT       30
-#define WIFI_SSID         ""
-#define WIFI_PASSWORD     ""
-
 
 struct RGB {
   byte r;
@@ -33,7 +30,7 @@ void setup() {
   strip.begin();
   strip.show();
 
-  setup_wifi();
+  // Connexion au wifi
 }
 
 void loop() {
@@ -75,29 +72,6 @@ void loop() {
     }
   }
 }
-
-
-void setup_wifi() {
-  delay(10);
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.print(WIFI_SSID);
-
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-
-  Serial.println();
-  Serial.print("WiFi is connected on ");
-  Serial.println(WIFI_SSID);
-  Serial.print("=> IP address : ");
-  Serial.println(WiFi.localIP());
-}
-
-
 
 
 double diffAbs(byte last, byte current) {
