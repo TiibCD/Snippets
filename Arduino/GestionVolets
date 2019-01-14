@@ -42,7 +42,7 @@ void setup() {
 
 
 void loop() {
-  // Un client est-il connecte ?
+  // On attend la connexion d'un client
   WiFiClient client = server.available();
   if (!client) {
     return;
@@ -50,7 +50,7 @@ void loop() {
   
   client.print(pageHTML());
 
-  // Attente donnees envoyees par un client
+  // On attend les donnees envoyees par un client
   Serial.println("Nouveau client");
   while (!client.available()) {
     delay(1);
@@ -61,7 +61,7 @@ void loop() {
   Serial.println(req);
   client.flush();
 
-  //------------------------------- FERMER -------------------------------------------------
+  //----- FERMER -----
   if (req.indexOf("/FERMER") != -1) 
   {
     Serial.println("Demande fermeture volet");
@@ -81,14 +81,14 @@ void loop() {
     Serial.println("client déconnecté");
   }
 
-  //------------------------------- OUVRIR -------------------------------------------------
+  //----- OUVRIR -----
   else if (req.indexOf("/OUVRIR") != -1)
   {
     Serial.println("Demande ouverture volet");
     
     // Positionnement port "up"
     digitalWrite(up, 1);                   // Début appui pour ouverture volet
-    delay(tempo);                           //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    delay(tempo);                          
     digitalWrite(up, 0);                    // Fin appui pour ouverture volet
 
 
@@ -105,7 +105,7 @@ void loop() {
 
 String reponseHTML()
 {
-  String valeur="ok";
+  String valeur="<br>ok";
   
   return valeur;
 }
@@ -114,7 +114,7 @@ String pageHTML()
 {
   String html="HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE HTML>\r\n<html>\r\n";
   html+="<br><input type=\"button\" name=\"b1\" value=\"Ouvrir\" onclick=\"location.href='/OUVRIR'\">";
-  html+="<br><br>";
+  html+="<br>";
   html+="<br><input type=\"button\" name=\"b1\" value=\"Fermer\" onclick=\"location.href='/FERMER'\">";
   html+="</html>\n";
   html+="<br><br>";
