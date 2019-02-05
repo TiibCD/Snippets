@@ -1,3 +1,5 @@
+# original code here https://domopi.eu/reconnecter-automatiquement-votre-raspberry-pi-au-wifi/
+
 #!/bin/bash
 
 # sudo vi /usr/local/bin/WifiRebooter.sh
