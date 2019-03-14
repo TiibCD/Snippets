@@ -1,0 +1,13 @@
+version: "3.6"
+services:
+   watchtower:
+    image: v2tec/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --schedule "0 0 4 * * MON" --cleanup --label-enable
+    environment:
+      - WATCHTOWER_NOTIFICATIONS=slack
+      - WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL="https://hooks.slack.com/service$
+      - WATCHTOWER_NOTIFICATION_SLACK_IDENTIFIER=theNuke_watchtower
