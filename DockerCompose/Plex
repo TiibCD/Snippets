@@ -20,3 +20,8 @@
       - "32414:32414/udp"
     environment:
       - TZ=${TZ}
+      - HOSTNAME="Your Plex"
+      - PLEX_CLAIM="claim-XXXXXXX"
+      - PLEX_UID=${PUID}
+      - PLEX_GID=${PGID}
+      - ADVERTISE_IP="http://YOUR.SERVER.IP:32400/"
