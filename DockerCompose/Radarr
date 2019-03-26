@@ -1,0 +1,16 @@
+  radarr:
+    image: linuxserver/radarr
+    container_name: "radarr"
+    restart: unless-stopped
+    ports:
+      - "XXXX:7878"
+    volumes:
+      - ${USERDIR}/docker/radarr:/config
+      - ${USERDIR}/media/downloads:/downloads
+      - ${USERDIR}/media/films:/movies
+      - "/etc/localtime:/etc/localtime:ro"
+      - ${USERDIR}/docker/shared:/shared
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
