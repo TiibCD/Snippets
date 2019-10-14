@@ -1,9 +1,20 @@
 // https://projetsdiy.fr/librairie-wifimanager-gerer-facilement-connexion-wifi-projets-esp8266/
+// copied from https://github.com/zhouhan0126/WIFIMANAGER-ESP32
 
+#if defined(ESP8266)
 #include <ESP8266WiFi.h>          //https://github.com/esp8266/Arduino
+#else
+#include <WiFi.h>          //https://github.com/esp8266/Arduino
+#endif
+
+//needed for library
 #include <DNSServer.h>
+#if defined(ESP8266)
 #include <ESP8266WebServer.h>
-#include <WiFiManager.h>         //https://github.com/tzapu/WiFiManager
+#else
+#include <WebServer.h>
+#endif
+#include <WiFiManager.h>         //https://github.com/tzapu/WiFiManager 
 
 void setup() 
 {
