@@ -7,7 +7,10 @@ dossier_courant = os.getcwd()
 fichier_modele = dossier_courant + '/_Analyse.txt'
 
 # On crée le dossier client qui contiendra les fichiers fournis par le client
-os.mkdir(dossier_courant + '/fichiers des clients/' + nom_client)
+try:
+	os.mkdir(dossier_courant + '/fichiers des clients/' + nom_client)
+except OSError as error:
+	print(error)
 
 # On crée un fichier d'analyse pour le client en partant du fichier modèle
 fichier_new = dossier_courant + '/notes/' + nom_fichier
