@@ -1,6 +1,7 @@
 import os
 import shutil
 import sys
+import subprocess
 
 if len(sys.argv) > 1:
     is_debug = str(sys.argv[1])
@@ -32,7 +33,6 @@ if type_analyse == '0':
     shutil.copy(analyse_modele_EDD, fichier_new)
     if is_debug == '1':
         print("DEBUG Création fichier : " + fichier_new)
-
 # On crée le dossier contenant les fichiers de test de l'interface du client
 # Ajouter une possibilité de désactiver ca ?
     try:
@@ -53,4 +53,10 @@ else:
         print("DEBUG Création fichier : " + fichier_new)
 
 
-# TODO On ouvre le fichier généré dans vs code
+# On ouvre le fichier généré dans vs code
+try:
+    subprocess.run('code -r "' + fichier_new + '"', shell=True)
+    if is_debug == '1':
+        print("DEBUG Ouverture fichier : " + fichier_new)
+except subprocess.SubprocessError as error:
+    print(error)
