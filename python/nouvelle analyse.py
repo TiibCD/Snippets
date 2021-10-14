@@ -7,6 +7,8 @@ if len(sys.argv) > 1:
     is_debug = str(sys.argv[1])
     if is_debug == '1':
         print("MODE DEBUG")
+else:
+    is_debug = 0
 
 type_analyse = input("EDD (0) / WS (1) : ")
 nom_client = input("Nom client : ")
