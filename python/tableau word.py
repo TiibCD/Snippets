@@ -1,6 +1,6 @@
 import json
-from docx import Document
 # import subprocess
+from docx import Document
 
 
 # Ouverture du fichier json
@@ -11,9 +11,13 @@ with open('template.json', 'r', encoding='UTF-8') as json_data:
 enregistrements = sorted(
     enregistrements, key=lambda entry: int(entry['position']))
 
-# Création du document et du tableau
-document = Document()
+# Lecture du document
+document = Document('TableauImport.docx')
+# Création du tableau
 tableau_word = document.add_table(rows=1, cols=6)
+# Utilisation d'un style
+tableau_word.style = document.styles['StyleTableauImport']
+
 hdr_cells = tableau_word.rows[0].cells
 hdr_cells[0].text = 'Notion'
 hdr_cells[1].text = 'Position'
@@ -33,11 +37,15 @@ for entity in enregistrements:
         row_cells[4].text = entity['exemple']
         row_cells[5].text = entity['commentaire']
 
-document.save('test.docx')
+document.save('TableauImport.docx')
 
 # RAZ des positions dans le fichier json
 for entity in enregistrements:
     entity['position'] = '0'
 # Ecriture du fichier json
+# TODO souci d'encoding
 with open('template.json', 'w', encoding='UTF-8') as json_data:
     json.dump(enregistrements, json_data, indent=2)
+
+# TODO Gérer l'ouverture du fichier généré
+# subprocess.run(['open' + document], check=True)
