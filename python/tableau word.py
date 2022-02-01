@@ -2,17 +2,19 @@ import json
 # import subprocess
 from docx import Document
 
-
 # Ouverture du fichier json
-with open('template.json', 'r', encoding='UTF-8') as json_data:
+with open('ChampsImportSalarie.json', 'r', encoding='UTF-8') as json_data:
     enregistrements = json.load(json_data)
 
 # Tri des élements par position
 enregistrements = sorted(
     enregistrements, key=lambda entry: int(entry['position']))
 
+# TODO Pouvoir générer un fichier Excel
 # Lecture du document
 document = Document('TableauImport.docx')
+
+# TODO RAZ du document word
 # Création du tableau
 tableau_word = document.add_table(rows=1, cols=6)
 # Utilisation d'un style
@@ -39,13 +41,15 @@ for entity in enregistrements:
 
 document.save('TableauImport.docx')
 
-# RAZ des positions dans le fichier json
-for entity in enregistrements:
-    entity['position'] = '0'
-# Ecriture du fichier json
-# TODO souci d'encoding
-with open('template.json', 'w', encoding='UTF-8') as json_data:
-    json.dump(enregistrements, json_data, indent=2)
+# RAZ des positions dans le fichier json (si paramètre en entrée)
+raz_position = input("RAZ des positions dans le fichier json ? (y/N) : ")
+if raz_position == "y":
+    for entity in enregistrements:
+        entity['position'] = '0'
+    # Ecriture du fichier json
+    # TODO souci d'encoding
+    with open('ChampsImportSalarie.json', 'w', encoding='UTF-8') as json_data:
+        json.dump(enregistrements, json_data, indent=2)
 
 # TODO Gérer l'ouverture du fichier généré
 # subprocess.run(['open' + document], check=True)
